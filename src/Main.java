@@ -1,5 +1,12 @@
+import ast.Program;
+import libs.Tokenizer;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.*;
 
 public class Main extends JPanel {
@@ -15,7 +22,18 @@ public class Main extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String inputText = textArea.getText();
+                if (inputText.length() < 1) {
+                    JOptionPane.showMessageDialog(textArea, "Empty Input!");
+                    return;
+                }
                 //Send to parser
+                List<String> literals = Arrays.asList("get","set");
+                Tokenizer.makeTokenizer(inputText,literals);
+                Program p = new Program();
+                p.parse();
+                p.evaluate();
+                // From here when it reaches the place where it parses the token that calls to make
+                // the test, the logic there will compile the completed question objects and send to pdf maker
             }
         });
         GridBagConstraints constraints = new GridBagConstraints();
