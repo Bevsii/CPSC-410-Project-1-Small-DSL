@@ -1,5 +1,3 @@
-package ui;
-
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -9,7 +7,7 @@ public class Main extends JPanel {
 
     public Main() {
         super(new GridBagLayout());
-        textArea = new JTextArea(20, 20);
+        textArea = new JTextArea(30, 60);
         JScrollPane scrollPane = new JScrollPane(textArea);
         JButton submitButton = new JButton("Create Test");
         this.add(submitButton);
