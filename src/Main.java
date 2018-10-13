@@ -4,9 +4,7 @@ import libs.Tokenizer;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.*;
 
 public class Main extends JPanel {
