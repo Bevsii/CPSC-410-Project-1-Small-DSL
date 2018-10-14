@@ -8,6 +8,7 @@ import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.util.Matrix;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class PDFConverter {
     //File Data
@@ -17,22 +18,37 @@ public class PDFConverter {
     // Margins
     private int marginTop = 30;
     private int marginLeft = 30;
+    private int questionSpace = 400;
 
     // Fonts
     PDFont titleFont = PDType1Font.HELVETICA_BOLD;
     int titleFontSize = 26;
-    PDFont textFont = PDType1Font.TIMES_BOLD;
+    PDFont textFont = PDType1Font.TIMES_ROMAN;
     int textFontSize = 16;
 
+    //TEMP
+    private ArrayList<String> questionList;
 
 
-    public PDFConverter(){
+    public PDFConverter() {
         document = new PDDocument();
+
+        //temp
+        questionList = new ArrayList<String>();
+        questionList.add("Question1?");
+        questionList.add("Question1?Question1?Question1?Question1?Question1?Question1?");
+        questionList.add("Question1?  Question1?");
+        questionList.add("Question1? _____________ Question1?Question1?");
+        questionList.add("What is the meaning of life?");
+        questionList.add("The name of the type of study cognitive psychologists use is ________");
+        questionList.add("Why are you like this?");
     }
 
     public void createPDF() {
         try {
             createTitlePage("Title font");
+
+            populateQuestions();
 
             document.save(fileName);
             document.close();
@@ -61,12 +77,53 @@ public class PDFConverter {
         content.setFont(textFont, textFontSize);
         content.newLineAtOffset(marginLeft, page.getMediaBox().getHeight() - marginTop - 100);
         content.showText("Name: _________________");
-        content.newLineAtOffset(0,-40);
+        content.newLineAtOffset(0, -40);
         content.showText("Student ID: _________________");
-        content.newLineAtOffset(0,-40);
-        content.showText("Grade: _________________");
+        content.newLineAtOffset(0, -40);
+        content.showText("Signature: _________________");
         content.endText();
 
+        content.close();
+    }
+
+    private void populateQuestions() throws IOException {
+        int questionPageCount = 0;
+        PDPage currentPage = null;
+        PDPageContentStream content = null;
+
+        for (String question : questionList) {
+
+            boolean isFirstQuestionOnPage = false;
+
+            if (questionPageCount % 3 == 0) {
+                isFirstQuestionOnPage = true;
+
+                // Close the content of the previous page
+                if (questionPageCount != 0 && null != content) {
+                    System.out.println("Bevlog: Not first!");
+                    content.endText();
+                    content.close();
+                }
+                System.out.println("Bevlog: New Page!");
+                currentPage = new PDPage();
+                document.addPage(currentPage);
+
+                content = new PDPageContentStream(document, currentPage);
+                content.beginText();
+                content.setFont(textFont, textFontSize);
+            }
+
+            System.out.println("Bevlog: Question number " + questionPageCount);
+
+            if(isFirstQuestionOnPage)
+                content.newLineAtOffset(marginLeft, currentPage.getMediaBox().getHeight() - marginTop - 100);
+            else
+                content.newLineAtOffset(0, -200);
+
+            content.showText(question);
+
+            questionPageCount++;
+        }
         content.close();
     }
 }
