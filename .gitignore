@@ -18,6 +18,7 @@
 *.zip
 *.tar.gz
 *.rar
+*.pdf
 
 # Exception
 !Libraries/pdfbox-app-2.0.12.jar
