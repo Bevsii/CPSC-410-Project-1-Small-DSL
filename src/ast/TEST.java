@@ -23,6 +23,7 @@ public class TEST extends Statement {
                 tokenizer.getNext(); // Skip the commas
             }
         }
+        tokenizer.getAndCheckNext("}");
     }
 
     @Override
