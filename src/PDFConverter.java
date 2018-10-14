@@ -120,7 +120,7 @@ public class PDFConverter {
             else
                 content.newLineAtOffset(0, -200);
 
-            content.showText(question);
+            content.showText(questionPageCount + 1 + ". " + question);
 
             questionPageCount++;
         }
