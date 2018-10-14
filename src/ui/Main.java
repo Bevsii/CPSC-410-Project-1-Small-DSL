@@ -32,7 +32,7 @@ public class Main extends JPanel {
                     return;
                 }
                 //Send to parser
-                List<String> literals = Arrays.asList("get","set");
+                List<String> literals = Arrays.asList("MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",", "'");
                 Tokenizer.makeTokenizer(inputText,literals);
                 Program p = new Program();
                 p.parse();
@@ -63,9 +63,6 @@ public class Main extends JPanel {
     }
 
     public static void main(String[] args) {
-        List<String> literals = Arrays.asList("MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",", "'");
-        Tokenizer.makeTokenizer("input.tst",literals);
-
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
