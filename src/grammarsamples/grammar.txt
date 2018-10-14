@@ -1,0 +1,42 @@
+MAKEPHRASE SM 'Solve the following equation'
+
+MAKEPHRASE Algebra 'Solve for x'
+
+
+MAKEQUESTION Q1 { 4*3+1, 13, SM} // this only takes one question answer phrase tuple (but phrase parameter is optional and defaults to something or only displays Question)
+
+MAKESET Mathunit1 [Q1, { 1 + 2 , 3}] // this creates an array of questions
+// Mathunit1 = { { 4*3+1,13,SM },{ 1+2,3 } }
+MAKESET Mathunit3 [Mathunit1, Q1, { 4*3+1, 13 }]
+
+MAKESET Mathunit14 [{ 1+2, 3 },{ 4*3+1, 13 }]
+
+MAKETEST final {Mathunit1, Mathunit3, Mathunit14} // this can use questions sets or other tests OR questions
+
+MAKEOUTPUT final //this is what becomes the pdf
+
+
+
+
+
+
+PROGRAM := STATEMENT*
+
+STATEMENT := MAKEPHRASE | MAKEQUESTION | MAKESET | MAKETEST | MAKEOUTPUT
+
+MAKEOUTPUT := NAME
+
+MAKETEST := "MAKETEST" TEST
+TEST := NAME "{" (SET|TEST ",")* SET|TEST "}"
+
+MAKESET := "MAKESET" SET
+SET := NAME (QUESTION|SET|EQUATION)*
+
+MAKEQUESTION := "MAKEQUESTION" QUESTION
+QUESTION := NAME EQUATION
+EQUATION := "{" PROMPT "," ANSWER ( "," PHRASE ) "}"
+PROMPT := STRING
+ANSWER := STRING
+
+MAKEPHRASE := "MAKEPHRASE" "'" PHRASE "'"
+PHRASE := NAME STRING
