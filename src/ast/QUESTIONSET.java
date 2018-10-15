@@ -9,6 +9,7 @@ public class QUESTIONSET extends Statement {
     String name;
     List<String> vars = new ArrayList<>();
     List<CONTENT> content = new ArrayList<>();
+    List<QUESTION> questions = new ArrayList<QUESTION>();
 
 
     @Override

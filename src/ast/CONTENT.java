@@ -9,7 +9,7 @@ import java.util.List;
 public class CONTENT extends Node {
     public String prompt;
     public String answer = null;
-    public List<String> choices = new ArrayList<>();
+    public List<String> choices = new ArrayList<String>();
     public String phrasevar = null;
 
     @Override
