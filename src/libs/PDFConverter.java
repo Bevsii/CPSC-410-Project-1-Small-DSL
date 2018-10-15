@@ -1,5 +1,7 @@
 package libs;
 
+import ast.QUESTION;
+import ast.QUESTIONSET;
 import org.apache.pdfbox.contentstream.PDContentStream;
 import org.apache.pdfbox.cos.ICOSVisitor;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -46,11 +48,11 @@ public class PDFConverter {
         questionList.add("Why are you like this?");
     }
 
-    public void createPDF() {
+    public void createPDF(QUESTIONSET questionSet) {
         try {
             createTitlePage("Title font");
 
-            populateQuestions();
+            populateQuestions(questionSet);
 
             document.save(fileName);
             document.close();
@@ -88,12 +90,12 @@ public class PDFConverter {
         content.close();
     }
 
-    private void populateQuestions() throws IOException {
+    private void populateQuestions(QUESTIONSET questionSet) throws IOException {
         int questionPageCount = 0;
         PDPage currentPage = null;
         PDPageContentStream content = null;
 
-        for (String question : questionList) {
+        for (QUESTION question : questionSet.getQuestions()) {
 
             boolean isFirstQuestionOnPage = false;
 
@@ -122,7 +124,7 @@ public class PDFConverter {
             else
                 content.newLineAtOffset(0, -200);
 
-            content.showText(questionPageCount + 1 + ". " + question);
+            content.showText(questionPageCount + 1 + ". " + question.getName() + " " + question.getContent());
 
             questionPageCount++;
         }

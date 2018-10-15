@@ -51,4 +51,8 @@ public class QUESTIONSET extends Statement {
         Main.symbolTable.put(name,set);
         return null;
     }
+
+    public List<QUESTION> getQuestions(){
+        return questions;
+    }
 }

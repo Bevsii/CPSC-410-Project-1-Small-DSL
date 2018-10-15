@@ -26,4 +26,12 @@ public class QUESTION extends Statement {
         // i.e. Q1 = "Solve the following equation: 4*3+1"
         return null;
     }
+
+    public CONTENT getContent(){
+        return content;
+    }
+
+    public String getName(){
+        return name;
+    }
 }

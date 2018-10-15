@@ -38,7 +38,7 @@ public class QuestionSetTest {
 
     public void setQuestion2 (){
         question2.name = "Q2";
-        question2.content = content2
+        question2.content = content2;
     }
 
     public void setQuestionSet(){
