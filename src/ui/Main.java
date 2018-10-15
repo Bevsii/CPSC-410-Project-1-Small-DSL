@@ -33,7 +33,7 @@ public class Main extends JPanel {
                     return;
                 }
                 //Send to parser
-                List<String> literals = Arrays.asList("MAKEPHRASE", "MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",", "'");
+                List<String> literals = Arrays.asList("MAKEPHRASE", "MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",");
                 Tokenizer.makeTokenizer(inputText,literals);
                 Program p = new Program();
                 p.parse();
