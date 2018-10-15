@@ -32,8 +32,8 @@ public class Tokenizer {
             tokenizedProgram = tokenizedProgram.replace(s,"_"+s+"_");
             System.out.println(tokenizedProgram);
         }
-        tokenizedProgram = tokenizedProgram.replaceAll("[_ ]+","_");
-        tokenizedProgram = tokenizedProgram.replaceAll("[ _]+","_");
+        tokenizedProgram = tokenizedProgram.replaceAll("_ ","_");
+        tokenizedProgram = tokenizedProgram.replaceAll(" _","_");
         System.out.println(tokenizedProgram);
         String [] temparray=tokenizedProgram.split("[_]+");
         tokens = new String[temparray.length-1];

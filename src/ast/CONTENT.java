@@ -71,7 +71,7 @@ public class CONTENT extends Node {
         this.prompt = str;
     }
 
-    public.void setAnswer(String ans){
+    public void setAnswer(String ans){
         this.answer = ans;
     }
 
