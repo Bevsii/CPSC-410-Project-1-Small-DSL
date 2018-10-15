@@ -1,6 +1,6 @@
-MAKEPHRASE SM 'Solve the following equation'
+MAKEPHRASE SM {Solve the following equation}
 
-MAKEPHRASE Algebra 'Solve for x'
+MAKEPHRASE Algebra {Solve for x}
 
 
 MAKEQUESTION Q1 { 4*3+1, 13, SM } // this only takes one question answer phrase tuple (but phrase parameter is optional and defaults to something or only displays Question)
