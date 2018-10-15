@@ -45,4 +45,8 @@ public class QuestionSetTest {
         qSet.questions.add(question);
         qSet.questions.add(question2);
     }
+
+    public QUESTIONSET getQuestionSet(){
+        return qSet;
+    }
 }

@@ -124,7 +124,7 @@ public class PDFConverter {
             else
                 content.newLineAtOffset(0, -200);
 
-            content.showText(questionPageCount + 1 + ". " + question.getName() + " " + question.getContent());
+            content.showText(questionPageCount + 1 + ". " + question.getContent().getPhrase() + " " + question.getContent().getPrompt());
 
             questionPageCount++;
         }

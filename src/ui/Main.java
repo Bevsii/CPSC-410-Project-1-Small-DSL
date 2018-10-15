@@ -2,6 +2,7 @@ package ui;
 
 import ast.Program;
 import ast.QUESTION;
+import ast.QuestionSetTest;
 import libs.Tokenizer;
 import libs.PDFConverter;
 
@@ -54,7 +55,15 @@ public class Main extends JPanel {
         add(scrollPane, constraints);
 
         PDFConverter PDFConverter = new PDFConverter();
-        PDFConverter.createPDF();
+
+        QuestionSetTest test = new QuestionSetTest();
+        test.setupContent();
+        test.setContent2();
+        test.setQuestion();
+        test.setQuestion2();
+        test.setQuestionSet();
+
+        PDFConverter.createPDF(test.getQuestionSet());
     }
 
     private static void createWindow() {

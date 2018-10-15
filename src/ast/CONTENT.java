@@ -66,7 +66,6 @@ public class CONTENT extends Node {
         return question;
     }
 
-
     public void setPrompt(String str){
         this.prompt = str;
     }
@@ -84,6 +83,9 @@ public class CONTENT extends Node {
     }
 
     public String getPrompt(){
+        if (null == prompt){
+            prompt ="";
+        }
         return this.prompt;
     }
 
@@ -96,8 +98,9 @@ public class CONTENT extends Node {
     }
 
     public String getPhrase (){
+        if (null == phrasevar){
+            phrasevar = "";
+        }
         return this.phrasevar;
     }
-
-
 }
