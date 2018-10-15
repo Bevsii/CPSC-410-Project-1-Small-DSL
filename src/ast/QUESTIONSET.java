@@ -1,6 +1,5 @@
 package ast;
 
-import libs.Node;
 import ui.Main;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.List;
 public class QUESTIONSET extends Statement {
     String name;
     List<String> vars = new ArrayList<>();
-    List<EQUATION> equations = new ArrayList<>();
+    List<CONTENT> content = new ArrayList<>();
 
 
     @Override
@@ -19,15 +18,15 @@ public class QUESTIONSET extends Statement {
         tokenizer.getAndCheckNext("[");
         while (!tokenizer.checkToken("]")){
             if(!tokenizer.checkToken(",")){
-                // If not an EQUATION (AKA unnamed) prompt/answer tuple,
+                // If not an CONTENT (AKA unnamed) prompt/answer tuple,
                 if(!tokenizer.checkToken("{")) {
                     // Add var name to list
                     vars.add(tokenizer.getNext());
                 }
-                else{   // Is an EQUATION
-                    EQUATION eq = new EQUATION();
-                    eq.parse();
-                    equations.add(eq);
+                else{   // Is an CONTENT
+                    CONTENT contents = new CONTENT();
+                    contents.parse();
+                    this.content.add(contents);
                 }
             }
             else {
@@ -43,8 +42,8 @@ public class QUESTIONSET extends Statement {
         for(String v : vars){
             set += Main.symbolTable.get(v) + "\n";
         }
-        for(EQUATION eq : equations){
-            set += eq.evaluate() + "\n";
+        for(CONTENT ct : content){
+            set += ct.evaluate() + "\n";
         }
 
         System.out.println("Setting "+name+" to the questions/question set: "+ set);

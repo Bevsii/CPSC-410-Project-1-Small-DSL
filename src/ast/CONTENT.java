@@ -6,11 +6,11 @@ import ui.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EQUATION extends Node {
-    String prompt;
-    String answer = null;
-    List<String> answers = new ArrayList<>();
-    String phrasevar = null;
+public class CONTENT extends Node {
+    public String prompt;
+    public String answer = null;
+    public List<String> choices = new ArrayList<>();
+    public String phrasevar = null;
 
     @Override
     public void parse(){
@@ -25,7 +25,7 @@ public class EQUATION extends Node {
             tokenizer.getAndCheckNext("{");
             while (!tokenizer.checkToken("}")){
                 if(!tokenizer.checkToken(",")){
-                    answers.add(tokenizer.getNext());
+                    choices.add(tokenizer.getNext());
                 }
                 else{
                     tokenizer.getNext();                    // Skip comma separator
@@ -53,9 +53,9 @@ public class EQUATION extends Node {
         if(phrasevar != null){
             phrase = Main.symbolTable.get(phrasevar) + ": ";
             question = phrase + prompt;
-            if(!answers.isEmpty() && answer == null){
+            if(!choices.isEmpty() && answer == null){
                 question += "\n";
-                for (String ans : answers){
+                for (String ans : choices){
                     question += ans + "\n";
                 }
             }
@@ -65,4 +65,39 @@ public class EQUATION extends Node {
         }
         return question;
     }
+
+
+    public void setPrompt(String str){
+        this.prompt = str;
+    }
+
+    public.void setAnswer(String ans){
+        this.answer = ans;
+    }
+
+    public void setChoices(List<String> choiceList){
+        this.choices = choiceList;
+    }
+
+    public void setPhrasevar (String pvar){
+        this.phrasevar = pvar;
+    }
+
+    public String getPrompt(){
+        return this.prompt;
+    }
+
+    public String getAnswer(){
+        return this.answer;
+    }
+
+    public List<String> getChoices(){
+        return this.choices;
+    }
+
+    public String getPhrase (){
+        return this.phrasevar;
+    }
+
+
 }
