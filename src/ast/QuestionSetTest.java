@@ -44,6 +44,13 @@ public class QuestionSetTest {
     public void setQuestionSet(){
         qSet.questions.add(question);
         qSet.questions.add(question2);
+        qSet.questions.add(question);
+        qSet.questions.add(question2);
+        qSet.questions.add(question2);
+        qSet.questions.add(question2);
+        qSet.questions.add(question);
+        qSet.questions.add(question);
+        qSet.questions.add(question);
     }
 
     public QUESTIONSET getQuestionSet(){

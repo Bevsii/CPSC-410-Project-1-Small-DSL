@@ -94,6 +94,7 @@ public class PDFConverter {
         int questionPageCount = 0;
         PDPage currentPage = null;
         PDPageContentStream content = null;
+        boolean wasLastQuestionMultipleChoice = false;
 
         for (QUESTION question : questionSet.getQuestions()) {
 
@@ -101,6 +102,7 @@ public class PDFConverter {
 
             if (questionPageCount % 3 == 0) {
                 isFirstQuestionOnPage = true;
+                wasLastQuestionMultipleChoice = false;
 
                 // Close the content of the previous page
                 if (questionPageCount != 0 && null != content) {
@@ -119,15 +121,35 @@ public class PDFConverter {
 
             System.out.println("Bevlog: Question number " + questionPageCount);
 
-            if(isFirstQuestionOnPage)
+            if (isFirstQuestionOnPage)
                 content.newLineAtOffset(marginLeft, currentPage.getMediaBox().getHeight() - marginTop - 100);
-            else
+            else if (wasLastQuestionMultipleChoice) {
+                content.newLineAtOffset(-50, -30);
+                wasLastQuestionMultipleChoice = false;
+            } else {
                 content.newLineAtOffset(0, -200);
+            }
 
             content.showText(questionPageCount + 1 + ". " + question.getContent().getPhrase() + " " + question.getContent().getPrompt());
+
+            if (question.getContent().getChoices().size() > 0) {
+                content.newLineAtOffset(50, -50);
+
+                int i = 1;
+                for (String choice : question.getContent().getChoices()) {
+                    content.showText(getCharForNumber(i) + ". " + choice);
+                    content.newLineAtOffset(0, -30);
+                    i++;
+                }
+                wasLastQuestionMultipleChoice = true;
+            }
 
             questionPageCount++;
         }
         content.close();
+    }
+
+    private String getCharForNumber(int i) {
+        return i > 0 && i < 27 ? String.valueOf((char) (i + 64)) : null;
     }
 }
