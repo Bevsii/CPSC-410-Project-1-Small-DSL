@@ -8,7 +8,7 @@ import java.util.List;
 
 public class QUESTIONSET extends Statement {
     String name;
-    List<String> vars = new ArrayList<>();
+    List<String> vars = new ArrayList<>(); //vars are question names
     List<CONTENT> content = new ArrayList<>();
     List<QUESTION> questions = new ArrayList<QUESTION>();
 

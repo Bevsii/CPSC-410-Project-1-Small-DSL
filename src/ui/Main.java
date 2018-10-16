@@ -15,7 +15,7 @@ import java.util.Map;
 import javax.swing.*;
 
 public class Main extends JPanel {
-    public static Map<String,String> symbolTable = new HashMap<>();
+    public static Map<String,Object> symbolTable = new HashMap<>();
 
     protected JTextArea textArea;
 
