@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class PDFConverter {
     //File Data
-    private String fileName = "TestPDF.pdf";
+    private String fileName = "Output.pdf";
     private PDDocument document;
 
     // Margins
@@ -48,9 +48,10 @@ public class PDFConverter {
         questionList.add("Why are you like this?");
     }
 
-    public void createPDF(QUESTIONSET questionSet) {
+    public void createTestPDF(QUESTIONSET questionSet) {
+
         try {
-            createTitlePage("Title font");
+            createTitlePage("Test");
 
             populateQuestions(questionSet);
 
@@ -147,6 +148,44 @@ public class PDFConverter {
             questionPageCount++;
         }
         content.close();
+    }
+
+    public void createAnswerKeyPDF(QUESTIONSET questions) {
+        try {
+            PDDocument answerKeyDocument = new PDDocument();
+
+
+            PDPage page = new PDPage();
+            answerKeyDocument.addPage(page);
+            PDPageContentStream content = new PDPageContentStream(answerKeyDocument, page);
+
+            float titleWidth = titleFont.getStringWidth("Answer Key") / 1000 * titleFontSize;
+            float titleHeight = titleFont.getFontDescriptor().getFontBoundingBox().getHeight() / 1000 * titleFontSize;
+
+            content.beginText();
+            content.setFont(titleFont, titleFontSize);
+            content.newLineAtOffset((page.getMediaBox().getWidth() - titleWidth) / 2, page.getMediaBox().getHeight() - marginTop - titleHeight);
+            content.showText("Answer Key");
+            content.endText();
+
+            content.beginText();
+            content.setFont(textFont, textFontSize);
+            content.newLineAtOffset(marginLeft, page.getMediaBox().getHeight() - marginTop - 100);
+            int i = 1;
+            for (QUESTION question : questions.getQuestions()) {
+                content.showText(i + ": " + question.getContent().getAnswer());
+                content.newLineAtOffset(0, -textFontSize * 2);
+                i++;
+            }
+            content.endText();
+            content.close();
+
+            answerKeyDocument.save("AnswerKey.pdf");
+            answerKeyDocument.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
     }
 
     private String getCharForNumber(int i) {

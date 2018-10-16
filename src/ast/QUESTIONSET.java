@@ -14,25 +14,23 @@ public class QUESTIONSET extends STATEMENT {
 
 
     @Override
-    public void parse(){
+    public void parse() {
         Tokenizer tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("MAKESET");
         name = tokenizer.getNext();
         tokenizer.getAndCheckNext("\\[");
-        while (!tokenizer.checkToken("\\]")){
-            if(!tokenizer.checkToken(",")){
+        while (!tokenizer.checkToken("\\]")) {
+            if (!tokenizer.checkToken(",")) {
                 // If not a CONTENT (AKA unnamed question)
-                if(!tokenizer.checkToken("\\{")) {
+                if (!tokenizer.checkToken("\\{")) {
                     // Add var name to list
                     vars.add(tokenizer.getNext());
-                }
-                else{   // Is a CONTENT
+                } else {   // Is a CONTENT
                     CONTENT contents = new CONTENT();
                     contents.parse();
                     this.content.add(contents);
                 }
-            }
-            else {
+            } else {
                 tokenizer.getNext(); // Skip the commas
             }
         }
@@ -40,15 +38,15 @@ public class QUESTIONSET extends STATEMENT {
     }
 
     @Override
-    public String evaluate(){
+    public String evaluate() {
         //use questions array instead of String set
         String useless = "";
-        for(String v : vars){
+        for (String v : vars) {
             // Check if Main.symbolTable.get(v) is a QUESTIONSET and add questions to this.questions
             Object questionOrSet = Main.symbolTable.get(v);
-            if(questionOrSet instanceof QUESTIONSET) {
+            if (questionOrSet instanceof QUESTIONSET) {
                 QUESTIONSET set = (QUESTIONSET) questionOrSet;
-                for (QUESTION q : set.getQuestions()){
+                for (QUESTION q : set.getQuestions()) {
                     this.questions.add(q);
                 }
             }
@@ -58,17 +56,21 @@ public class QUESTIONSET extends STATEMENT {
                 this.questions.add(q);
             }
         }
-        for(CONTENT ct : content){
+        for (CONTENT ct : content) {
             // Make a question with an arbitrary name and add it to this.questions
             QUESTION q = new QUESTION();
             q.content = ct;
             this.questions.add(q);
         }
-        Main.symbolTable.put(name,this);
+        Main.symbolTable.put(name, this);
         return null;
     }
 
-    public List<QUESTION> getQuestions(){
+    public List<QUESTION> getQuestions() {
         return questions;
+    }
+
+    public String getName() {
+        return name;
     }
 }

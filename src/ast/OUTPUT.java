@@ -18,7 +18,8 @@ public class OUTPUT extends STATEMENT {
     public String evaluate(){
         PDFConverter pdfConverter = new PDFConverter();
         QUESTIONSET questionSet = (QUESTIONSET) Main.symbolTable.get(questionSetName);
-        pdfConverter.createPDF(questionSet);
+        pdfConverter.createTestPDF(questionSet);
+        pdfConverter.createAnswerKeyPDF(questionSet);
         System.out.println("FINISHED!!!!");
         return null;
     }
