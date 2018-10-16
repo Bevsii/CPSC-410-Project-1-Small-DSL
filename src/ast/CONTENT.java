@@ -99,7 +99,7 @@ public class CONTENT extends STATEMENT {
 
     public String getPhrase (){
         if (null == phrasevar){
-            phrasevar = "";
+            return "";
         }
         return (String) Main.symbolTable.get(this.phrasevar);
     }
