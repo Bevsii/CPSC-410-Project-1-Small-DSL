@@ -18,6 +18,7 @@ public class OUTPUT extends Statement {
     public String evaluate(){
         //TODO: Convert to PDF
         Main.symbolTable.get(test);
+        System.out.println("FINISHED!!!!");
         return null;
     }
 }
