@@ -1,20 +1,23 @@
 package ast;
 
 import libs.Node;
+import libs.Tokenizer;
 import ui.Main;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TEST extends Statement {
-    List<String> vars;  // vars can contain TEST vars AND QUESTIONSET vars.
-    String name;
+    private List<String> vars = new ArrayList<>();  // vars can contain TEST vars AND QUESTIONSET vars.
+    private String name;
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("MAKETEST");
         name = tokenizer.getNext();
-        tokenizer.getAndCheckNext("{");
-        while(!tokenizer.checkToken("}")){
+        tokenizer.getAndCheckNext("\\{");
+        while(!tokenizer.checkToken("\\}")){
             QUESTIONSET qs = null;
             if(!tokenizer.checkToken(",")){
                 vars.add(tokenizer.getNext());
@@ -23,7 +26,7 @@ public class TEST extends Statement {
                 tokenizer.getNext(); // Skip the commas
             }
         }
-        tokenizer.getAndCheckNext("}");
+        tokenizer.getAndCheckNext("\\}");
     }
 
     @Override

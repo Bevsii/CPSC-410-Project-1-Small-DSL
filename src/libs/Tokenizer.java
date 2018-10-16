@@ -25,7 +25,7 @@ public class Tokenizer {
     private void tokenize (){
         String tokenizedProgram = program;
         tokenizedProgram = tokenizedProgram.replace("\n","");
-        tokenizedProgram = tokenizedProgram.replaceAll("([0-9]+)","_$1_");
+        //tokenizedProgram = tokenizedProgram.replaceAll("([0-9]+)","_$1_");
         System.out.println(program);
 
         for (String s : literals){
@@ -60,6 +60,7 @@ public class Tokenizer {
         }
         else
             token="NULLTOKEN";
+        System.out.println(token);
         return token;
     }
 

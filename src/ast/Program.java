@@ -1,17 +1,20 @@
 package ast;
 
 import libs.Node;
+import libs.Tokenizer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Program extends Node{
+public class Program extends Node {
     private List<Statement> statements = new ArrayList<>();
 
     @Override
     public void parse() {
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
+
         while (tokenizer.moreTokens()) {
             //Statement s = Statement.getSubStatement();
             Statement s = null;

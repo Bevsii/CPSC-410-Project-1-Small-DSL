@@ -1,6 +1,7 @@
 package ast;
 
 import libs.Node;
+import libs.Tokenizer;
 import ui.Main;
 
 public class OUTPUT extends Statement {
@@ -8,6 +9,7 @@ public class OUTPUT extends Statement {
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("MAKEOUTPUT");
         test = tokenizer.getNext();
     }

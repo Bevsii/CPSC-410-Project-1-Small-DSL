@@ -21,6 +21,7 @@ public class Main extends JPanel {
 
     public Main() {
         super(new GridBagLayout());
+        List<String> literals = Arrays.asList("MAKEPHRASE", "MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",", "[", "]");
         textArea = new JTextArea(30, 60);
         JScrollPane scrollPane = new JScrollPane(textArea);
         JButton submitButton = new JButton("Create Test");
@@ -33,8 +34,8 @@ public class Main extends JPanel {
                     JOptionPane.showMessageDialog(textArea, "Empty Input!");
                     return;
                 }
+                symbolTable.clear();
                 //Send to parser
-                List<String> literals = Arrays.asList("MAKEPHRASE", "MAKEQUESTION", "MAKESET", "MAKETEST", "MAKEOUTPUT", "{", "}", ",");
                 Tokenizer.makeTokenizer(inputText,literals);
                 Program p = new Program();
                 p.parse();

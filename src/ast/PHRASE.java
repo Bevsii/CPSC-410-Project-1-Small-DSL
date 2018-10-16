@@ -1,5 +1,6 @@
 package ast;
 
+import libs.Tokenizer;
 import ui.Main;
 
 public class PHRASE extends Statement {
@@ -8,16 +9,17 @@ public class PHRASE extends Statement {
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         //MAKEPHRASE
         tokenizer.getAndCheckNext("MAKEPHRASE");
         // Phrase Name
         name = tokenizer.getNext();
         // Open '
-        tokenizer.getAndCheckNext("'");
+        tokenizer.getAndCheckNext("\\{");
         // Phrase content
         phrase = tokenizer.getNext();
         // Closing '
-        tokenizer.getAndCheckNext("'");
+        tokenizer.getAndCheckNext("\\}");
     }
 
     @Override

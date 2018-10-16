@@ -19,7 +19,11 @@ MAKETEST final {Mathunit1, Mathunit3, Mathunit14} // this can use questions sets
 MAKEOUTPUT final //this is what becomes the pdf
 
 
-
+MAKEPHRASE SM {Solve the following equation}
+MAKEQUESTION Q1 { 4*3+1, 13, SM }
+MAKESET Mathunit1 [Q1, { 1 + 2 , 3}]
+MAKETEST final {Mathunit1}
+MAKEOUTPUT final
 
 
 

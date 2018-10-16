@@ -2,11 +2,12 @@ package ast;
 
 import libs.Node;
 import ui.Main;
+import libs.Tokenizer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CONTENT extends Node {
+public class CONTENT extends Statement {
     public String prompt;
     public String answer = null;
     public List<String> choices = new ArrayList<String>();
@@ -14,16 +15,17 @@ public class CONTENT extends Node {
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         // {
-        tokenizer.getAndCheckNext("{");
+        tokenizer.getAndCheckNext("\\{");
         // "Equation" comes next
         prompt = tokenizer.getNext();
         // Separator comma
         tokenizer.getAndCheckNext(",");
         // "Solution" to the "Equation"
-        if (tokenizer.checkToken("{")){             // If multiple choice
-            tokenizer.getAndCheckNext("{");
-            while (!tokenizer.checkToken("}")){
+        if (tokenizer.checkToken("\\{")){             // If multiple choice
+            tokenizer.getAndCheckNext("\\{");
+            while (!tokenizer.checkToken("\\}")){
                 if(!tokenizer.checkToken(",")){
                     choices.add(tokenizer.getNext());
                 }
@@ -31,7 +33,7 @@ public class CONTENT extends Node {
                     tokenizer.getNext();                    // Skip comma separator
                 }
             }
-            tokenizer.getAndCheckNext("}");
+            tokenizer.getAndCheckNext("\\}");
         }
         else {                                              // Else it's short answer
             answer = tokenizer.getNext();
@@ -42,7 +44,7 @@ public class CONTENT extends Node {
             phrasevar = tokenizer.getNext();
         }
         // End of equation,answer,phrase container
-        tokenizer.getAndCheckNext("}");
+        tokenizer.getAndCheckNext("\\}");
     }
 
     @Override

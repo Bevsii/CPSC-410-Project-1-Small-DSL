@@ -1,5 +1,6 @@
 package ast;
 
+import libs.Tokenizer;
 import ui.Main;
 
 public class QUESTION extends Statement {
@@ -9,6 +10,7 @@ public class QUESTION extends Statement {
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("MAKEQUESTION");
         // Store question Name
         name = tokenizer.getNext();

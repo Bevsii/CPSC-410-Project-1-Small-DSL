@@ -1,5 +1,6 @@
 package ast;
 
+import libs.Tokenizer;
 import ui.Main;
 
 import java.util.ArrayList;
@@ -14,13 +15,14 @@ public class QUESTIONSET extends Statement {
 
     @Override
     public void parse(){
+        Tokenizer tokenizer = Tokenizer.getTokenizer();
         tokenizer.getAndCheckNext("MAKESET");
         name = tokenizer.getNext();
-        tokenizer.getAndCheckNext("[");
-        while (!tokenizer.checkToken("]")){
+        tokenizer.getAndCheckNext("\\[");
+        while (!tokenizer.checkToken("\\]")){
             if(!tokenizer.checkToken(",")){
                 // If not an CONTENT (AKA unnamed) prompt/answer tuple,
-                if(!tokenizer.checkToken("{")) {
+                if(!tokenizer.checkToken("\\{")) {
                     // Add var name to list
                     vars.add(tokenizer.getNext());
                 }
@@ -34,7 +36,7 @@ public class QUESTIONSET extends Statement {
                 tokenizer.getNext(); // Skip the commas
             }
         }
-        tokenizer.getAndCheckNext("]");
+        tokenizer.getAndCheckNext("\\]");
     }
 
     @Override
