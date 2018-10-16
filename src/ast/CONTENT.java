@@ -101,6 +101,6 @@ public class CONTENT extends STATEMENT {
         if (null == phrasevar){
             phrasevar = "";
         }
-        return this.phrasevar;
+        return (String) Main.symbolTable.get(this.phrasevar);
     }
 }
