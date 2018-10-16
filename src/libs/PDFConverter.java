@@ -119,7 +119,7 @@ public class PDFConverter {
                 content.setFont(textFont, textFontSize);
             }
 
-            System.out.println("Bevlog: Question number " + questionPageCount);
+            //System.out.println("Bevlog: Question number " + questionPageCount);
 
             if (isFirstQuestionOnPage)
                 content.newLineAtOffset(marginLeft, currentPage.getMediaBox().getHeight() - marginTop - 100);
