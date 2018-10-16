@@ -3,7 +3,7 @@ package ast;
 import libs.Tokenizer;
 import ui.Main;
 
-public class QUESTION extends Statement {
+public class QUESTION extends STATEMENT {
     String name;
 
     CONTENT content;
@@ -22,10 +22,10 @@ public class QUESTION extends Statement {
 
     @Override
     public String evaluate(){
-        String questionContent = content.evaluate();
-        System.out.println("Setting "+name+" to the question "+ questionContent);
+        // String questionContent = content.evaluate();
+        // System.out.println("Setting "+name+" to the question "+ questionContent);
         Main.symbolTable.put(name, this);
-        // i.e. Q1 = "Solve the following equation: 4*3+1"
+        // i.e. Q1 contains its name, Q1, and more importantly, the CONTENT with PROMPT, ANSWER, CHOICES, and PHRASE (as variable name)
         return null;
     }
 

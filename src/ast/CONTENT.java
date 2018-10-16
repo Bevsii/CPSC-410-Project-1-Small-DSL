@@ -1,13 +1,12 @@
 package ast;
 
-import libs.Node;
-import ui.Main;
 import libs.Tokenizer;
+import ui.Main;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CONTENT extends Statement {
+public class CONTENT extends STATEMENT {
     public String prompt;
     public String answer = null;
     public List<String> choices = new ArrayList<String>();
@@ -23,8 +22,10 @@ public class CONTENT extends Statement {
         // Separator comma
         tokenizer.getAndCheckNext(",");
         // "Solution" to the "Equation"
+        answer = tokenizer.getNext();
+        // Is the question multiple choice? (i.e. is there an array of answers directly after the one ANSWER?
         if (tokenizer.checkToken("\\{")){             // If multiple choice
-            tokenizer.getAndCheckNext("\\{");
+            tokenizer.getAndCheckNext("\\{");         // Skip bracket
             while (!tokenizer.checkToken("\\}")){
                 if(!tokenizer.checkToken(",")){
                     choices.add(tokenizer.getNext());
@@ -33,10 +34,7 @@ public class CONTENT extends Statement {
                     tokenizer.getNext();                    // Skip comma separator
                 }
             }
-            tokenizer.getAndCheckNext("\\}");
-        }
-        else {                                              // Else it's short answer
-            answer = tokenizer.getNext();
+            tokenizer.getAndCheckNext("\\}");         // Skip closing bracket
         }
         // Optional separator comma for PHRASE var name
         if(tokenizer.checkToken(",")){
@@ -49,8 +47,8 @@ public class CONTENT extends Statement {
 
     @Override
     public String evaluate(){
+/*      ||| UNNEEDED EVALUATION |||
         String question;
-        // TODO: !!!GIVE PHRASE A DEFAULT VALUE AS INTENDED!!!
         String phrase;
         if(phrasevar != null){
             phrase = Main.symbolTable.get(phrasevar) + ": ";
@@ -64,8 +62,8 @@ public class CONTENT extends Statement {
         }
         else {
             question = prompt;
-        }
-        return question;
+        }*/
+        return null;
     }
 
     public void setPrompt(String str){

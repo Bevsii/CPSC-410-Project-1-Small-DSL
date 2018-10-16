@@ -1,7 +1,6 @@
 package ui;
 
-import ast.Program;
-import ast.QUESTION;
+import ast.PROGRAM;
 import ast.QuestionSetTest;
 import libs.Tokenizer;
 import libs.PDFConverter;
@@ -37,7 +36,7 @@ public class Main extends JPanel {
                 symbolTable.clear();
                 //Send to parser
                 Tokenizer.makeTokenizer(inputText,literals);
-                Program p = new Program();
+                PROGRAM p = new PROGRAM();
                 p.parse();
                 p.evaluate();
                 // From here when it reaches the place where it parses the token that calls to make

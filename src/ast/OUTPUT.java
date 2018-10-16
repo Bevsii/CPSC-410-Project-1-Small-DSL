@@ -1,11 +1,10 @@
 package ast;
 
-import libs.Node;
 import libs.PDFConverter;
 import libs.Tokenizer;
 import ui.Main;
 
-public class OUTPUT extends Statement {
+public class OUTPUT extends STATEMENT {
     String questionSetName;
 
     @Override
@@ -17,7 +16,6 @@ public class OUTPUT extends Statement {
 
     @Override
     public String evaluate(){
-        //TODO: Convert to PDF
         PDFConverter pdfConverter = new PDFConverter();
         QUESTIONSET questionSet = (QUESTIONSET) Main.symbolTable.get(questionSetName);
         pdfConverter.createPDF(questionSet);

@@ -1,13 +1,12 @@
 package ast;
 
-import libs.Node;
 import libs.Tokenizer;
 import ui.Main;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TEST extends Statement {
+public class TEST extends STATEMENT {
     private List<String> vars = new ArrayList<>();  // vars can contain TEST vars AND QUESTIONSET vars.
     private String name;
 
@@ -18,7 +17,6 @@ public class TEST extends Statement {
         name = tokenizer.getNext();
         tokenizer.getAndCheckNext("\\{");
         while(!tokenizer.checkToken("\\}")){
-            QUESTIONSET qs = null;
             if(!tokenizer.checkToken(",")){
                 vars.add(tokenizer.getNext());
             }

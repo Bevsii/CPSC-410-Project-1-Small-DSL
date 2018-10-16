@@ -4,20 +4,18 @@ import libs.Node;
 import libs.Tokenizer;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class Program extends Node {
-    private List<Statement> statements = new ArrayList<>();
+public class PROGRAM extends Node {
+    private List<STATEMENT> statements = new ArrayList<>();
 
     @Override
     public void parse() {
         Tokenizer tokenizer = Tokenizer.getTokenizer();
 
         while (tokenizer.moreTokens()) {
-            //Statement s = Statement.getSubStatement();
-            Statement s = null;
+            //STATEMENT s = STATEMENT.getSubStatement();
+            STATEMENT s = null;
             if (tokenizer.checkToken("MAKEPHRASE")){
                 s = new PHRASE();
             }
@@ -41,7 +39,7 @@ public class Program extends Node {
 
     @Override
     public String evaluate() {
-        for (Statement s : statements){
+        for (STATEMENT s : statements){
             s.evaluate();
         }
         return null;

@@ -3,7 +3,7 @@ package ast;
 import libs.Tokenizer;
 import ui.Main;
 
-public class PHRASE extends Statement {
+public class PHRASE extends STATEMENT {
     String name;
     String phrase;
 

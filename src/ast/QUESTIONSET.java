@@ -6,7 +6,7 @@ import ui.Main;
 import java.util.ArrayList;
 import java.util.List;
 
-public class QUESTIONSET extends Statement {
+public class QUESTIONSET extends STATEMENT {
     String name;
     List<String> vars = new ArrayList<>(); //vars are question names
     List<CONTENT> content = new ArrayList<>();
@@ -21,12 +21,12 @@ public class QUESTIONSET extends Statement {
         tokenizer.getAndCheckNext("\\[");
         while (!tokenizer.checkToken("\\]")){
             if(!tokenizer.checkToken(",")){
-                // If not an CONTENT (AKA unnamed) prompt/answer tuple,
+                // If not a CONTENT (AKA unnamed question)
                 if(!tokenizer.checkToken("\\{")) {
                     // Add var name to list
                     vars.add(tokenizer.getNext());
                 }
-                else{   // Is an CONTENT
+                else{   // Is a CONTENT
                     CONTENT contents = new CONTENT();
                     contents.parse();
                     this.content.add(contents);
@@ -42,22 +42,29 @@ public class QUESTIONSET extends Statement {
     @Override
     public String evaluate(){
         //use questions array instead of String set
-        String set = "";
+        String useless = "";
         for(String v : vars){
-            //TODO check if Main.symbolTable.get(v) is a QUESTIONSET
-            //  if so, add all questions in QUESTIONSET to this.questions
-            //check if Main.symbolTable.get(v) is a QUESTION
-            //  if it is, add it directly to this.questions
-            set += Main.symbolTable.get(v) + "\n";
+            // Check if Main.symbolTable.get(v) is a QUESTIONSET and add questions to this.questions
+            Object questionOrSet = Main.symbolTable.get(v);
+            if(questionOrSet instanceof QUESTIONSET) {
+                QUESTIONSET set = (QUESTIONSET) questionOrSet;
+                for (QUESTION q : set.getQuestions()){
+                    this.questions.add(q);
+                }
+            }
+            // If of QUESTION type, just add to this.questions
+            else if (questionOrSet instanceof QUESTION) {
+                QUESTION q = (QUESTION) questionOrSet;
+                this.questions.add(q);
+            }
         }
         for(CONTENT ct : content){
-            //TODO make a question with an arbitrary name and add it to this.questions
-            set += ct.evaluate() + "\n";
+            // Make a question with an arbitrary name and add it to this.questions
+            QUESTION q = new QUESTION();
+            q.content = ct;
+            this.questions.add(q);
         }
-
-        System.out.println("Setting "+name+" to the questions/question set: "+ set);
-        //TODO actually want to store this into symbol table
-        Main.symbolTable.put(name,set);
+        Main.symbolTable.put(name,this);
         return null;
     }
 
