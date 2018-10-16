@@ -22,9 +22,9 @@ public class QUESTION extends Statement {
 
     @Override
     public String evaluate(){
-        String question = content.evaluate();
-        System.out.println("Setting "+name+" to the question "+ question);
-        Main.symbolTable.put(name, question);
+        String questionContent = content.evaluate();
+        System.out.println("Setting "+name+" to the question "+ questionContent);
+        Main.symbolTable.put(name, this);
         // i.e. Q1 = "Solve the following equation: 4*3+1"
         return null;
     }
