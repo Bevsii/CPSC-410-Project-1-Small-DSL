@@ -17,6 +17,7 @@ public class Tokenizer {
             System.out.println("Empty Input");
             return;
         }
+        System.out.println("Tokenizing!");
         literals = literalsList;
         program = inputText;
         tokenize();
@@ -87,9 +88,7 @@ public class Tokenizer {
     }
 
     public static void makeTokenizer(String inputText, List<String> literals){
-        if (theTokenizer==null){
-            theTokenizer = new Tokenizer(inputText,literals);
-        }
+        theTokenizer = new Tokenizer(inputText,literals);
     }
 
     public static Tokenizer getTokenizer(){

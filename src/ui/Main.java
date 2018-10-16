@@ -15,6 +15,8 @@ import javax.swing.*;
 
 public class Main extends JPanel {
     public static Map<String,Object> symbolTable = new HashMap<>();
+    private String inputText;
+    private PROGRAM p;
 
     protected JTextArea textArea;
 
@@ -28,7 +30,8 @@ public class Main extends JPanel {
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String inputText = textArea.getText();
+                System.out.println("Running!");
+                inputText = textArea.getText();
                 if (inputText.length() < 1) {
                     JOptionPane.showMessageDialog(textArea, "Empty Input!");
                     return;
@@ -36,7 +39,7 @@ public class Main extends JPanel {
                 symbolTable.clear();
                 //Send to parser
                 Tokenizer.makeTokenizer(inputText,literals);
-                PROGRAM p = new PROGRAM();
+                p = new PROGRAM();
                 p.parse();
                 p.evaluate();
                 // From here when it reaches the place where it parses the token that calls to make
@@ -53,17 +56,6 @@ public class Main extends JPanel {
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
         add(scrollPane, constraints);
-
-        PDFConverter PDFConverter = new PDFConverter();
-
-        QuestionSetTest test = new QuestionSetTest();
-        test.setupContent();
-        test.setContent2();
-        test.setQuestion();
-        test.setQuestion2();
-        test.setQuestionSet();
-
-        PDFConverter.createPDF(test.getQuestionSet());
     }
 
     private static void createWindow() {
