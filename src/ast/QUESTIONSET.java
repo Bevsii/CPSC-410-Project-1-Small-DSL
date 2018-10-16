@@ -41,15 +41,22 @@ public class QUESTIONSET extends Statement {
 
     @Override
     public String evaluate(){
+        //use questions array instead of String set
         String set = "";
         for(String v : vars){
+            //TODO check if Main.symbolTable.get(v) is a QUESTIONSET
+            //  if so, add all questions in QUESTIONSET to this.questions
+            //check if Main.symbolTable.get(v) is a QUESTION
+            //  if it is, add it directly to this.questions
             set += Main.symbolTable.get(v) + "\n";
         }
         for(CONTENT ct : content){
+            //TODO make a question with an arbitrary name and add it to this.questions
             set += ct.evaluate() + "\n";
         }
 
         System.out.println("Setting "+name+" to the questions/question set: "+ set);
+        //TODO actually want to store this into symbol table
         Main.symbolTable.put(name,set);
         return null;
     }
